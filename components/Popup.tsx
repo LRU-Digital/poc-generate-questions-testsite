@@ -1,0 +1,32 @@
+'use client';
+
+import { useState } from 'react';
+
+export default function Popup() {
+  const [visible, setVisible] = useState(true);
+
+  if (!visible) return null;
+
+  return (
+    <div onClick={() => setVisible(false)} className="absolute p-6 rounded-2xl bg-teal-800 shadow-lg shadow-gray-950 w-150 text-white top-13 left-30 text-left">
+      <button
+        onClick={() => setVisible(false)}
+        className="absolute top-3 right-3 text-white/70 hover:text-white transition-colors cursor-pointer"
+        aria-label="Close"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+      {/* Speech bubble triangle – border layer */}
+      <div className="absolute -top-3.25 left-6 w-0 h-0 border-l-10 border-l-transparent border-r-10 border-r-transparent border-b-3.25 border-b-gray-100" />
+      {/* Speech bubble triangle – fill layer */}
+      <div className="absolute -top-[12px] left-5 w-0 h-0 border-l-10 border-l-transparent border-r-10 border-r-transparent border-b-[12px] border-b-teal-800" />
+      <p className="mb-2">Du er nu inde på et test forløb og vi håber, du vil bære over med, at alt ikke ser ud, som det plejer.</p>
+        <p className="mb-2">Her kan du teste vores kommende funktionalitet, hvor du med hjælp fra AI, kan generere en række spørgsmål til teksten på den nuværende side.</p>
+        <p>
+            Tak for at være med</p>
+    </div>
+  );
+}
