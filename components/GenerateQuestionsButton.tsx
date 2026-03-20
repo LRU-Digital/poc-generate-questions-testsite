@@ -107,7 +107,7 @@ export default function GenerateQuestionsButton() {
         </span>
       <button
         onClick={() => setIsModalOpen(true)}
-        className="h-10 max-w-full px-5 py-2.5 rounded inline-flex gap-2 text-base text-center leading-5 items-center select-none active:shadow-inner active:shadow-gray-900/25 text-gray-900 bg-gray-200 hover:bg-gray-300 active:bg-white whitespace-nowrap flex-shrink-0 cursor-pointer"
+        className="z-100 h-10 max-w-full px-5 py-2.5 rounded inline-flex gap-2 text-base text-center leading-5 items-center select-none active:shadow-inner active:shadow-gray-900/25 text-gray-900 bg-gray-200 hover:bg-gray-300 active:bg-white whitespace-nowrap flex-shrink-0 cursor-pointer"
       >
        
         <span className="truncate font-black">Generér spørgsmål til teksten</span> <Image src="/sparkles-pink.png" alt="AI icon" width={20} height={20} />

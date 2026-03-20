@@ -11,7 +11,7 @@ interface ModalProps {
 
 export default function Modal({ isOpen, onClose, title, children }: ModalProps) {
   return (
-    <Dialog open={isOpen} onClose={onClose} className="relative z-50">
+    <Dialog open={isOpen} onClose={onClose} className="relative z-150">
       {/* Backdrop */}
       <div className="fixed inset-0 bg-gray-900/80 grid items-center p-2 sm:p-4" aria-hidden="true" />
 

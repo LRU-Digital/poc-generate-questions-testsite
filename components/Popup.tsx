@@ -8,7 +8,11 @@ export default function Popup() {
   if (!visible) return null;
 
   return (
-    <div onClick={() => setVisible(false)} className="absolute p-6 rounded-2xl bg-teal-800 shadow-lg shadow-gray-950 w-150 text-white top-13 left-[-200px] text-left">
+    <>
+      {/* Dimmed background overlay */}
+      <div className="fixed inset-0 bg-black/50 z-40" />
+      {/* Popup content */}
+      <div onClick={() => setVisible(false)} className="z-100 absolute p-6 rounded-2xl bg-teal-800 shadow-lg shadow-gray-950 w-150 text-white top-13 left-[-200px] text-left">
       <button
         onClick={() => setVisible(false)}
         className="absolute top-3 right-3 text-white/70 hover:text-white transition-colors cursor-pointer"
@@ -28,6 +32,7 @@ export default function Popup() {
           <p className="mb-2">Klik på knappen ovenover for at bruge AI-funktionen og få andet indhold.</p>
           <p className="mb-2">Du kan teste den lige så længe, du har lyst. Tak for at være med!</p>
         <p>Her kan du teste vores kommende funktionalitet, hvor du med hjælp fra AI, kan generere en række spørgsmål til teksten på den nuværende side.</p>
-    </div>
+      </div>
+    </>
   );
 }
