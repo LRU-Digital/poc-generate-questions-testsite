@@ -1,16 +1,17 @@
 'use client';
 
-import { useState } from 'react';
+interface PopupProps {
+  visible: boolean;
+  setVisible: (visible: boolean) => void;
+}
 
-export default function Popup() {
-  const [visible, setVisible] = useState(true);
-
+export default function Popup({ visible, setVisible }: PopupProps) {
   if (!visible) return null;
 
   return (
     <>
       {/* Dimmed background overlay */}
-      <div className="fixed inset-0 bg-black/50 z-40" />
+      <div className="fixed inset-0 bg-black/50 z-40"  onClick={() => setVisible(false)}/>
       {/* Popup content */}
       <div onClick={() => setVisible(false)} className="z-100 absolute p-6 rounded-2xl bg-teal-800 shadow-lg shadow-gray-950 w-150 text-white top-13 left-[-200px] text-left">
       <button

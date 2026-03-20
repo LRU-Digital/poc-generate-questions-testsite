@@ -8,6 +8,7 @@ import Image from "next/image";
 
 export default function GenerateQuestionsButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [popupVisible, setPopupVisible] = useState(true);
 
   const formatMarkdownContent = (content: string) => {
     const lines = content.trim().split('\n');
@@ -103,10 +104,13 @@ export default function GenerateQuestionsButton() {
   return (
     <>
        <span className="relative">
-          <Popup />
+          <Popup visible={popupVisible} setVisible={setPopupVisible} />
         </span>
       <button
-        onClick={() => setIsModalOpen(true)}
+        onClick={() => {
+          setIsModalOpen(true);
+          setPopupVisible(false);
+        }}
         className="z-100 h-10 max-w-full px-5 py-2.5 rounded inline-flex gap-2 text-base text-center leading-5 items-center select-none active:shadow-inner active:shadow-gray-900/25 text-gray-900 bg-gray-200 hover:bg-gray-300 active:bg-white whitespace-nowrap flex-shrink-0 cursor-pointer"
       >
        
