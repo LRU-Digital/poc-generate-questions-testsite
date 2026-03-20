@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Modal from './Modal';
-import { sampleQuestions } from '@/data/sampleQuestions';
+import { sampleQuestionsJson } from '@/data/sampleQuestionsJson';
 import Popup from "./Popup";
 import Image from "next/image";
 
@@ -111,7 +111,7 @@ export default function GenerateQuestionsButton() {
           setIsModalOpen(true);
           setPopupVisible(false);
         }}
-        className="z-100 h-10 max-w-full px-5 py-2.5 rounded inline-flex gap-2 text-base text-center leading-5 items-center select-none active:shadow-inner active:shadow-gray-900/25 text-gray-900 bg-gray-200 hover:bg-gray-300 active:bg-white whitespace-nowrap flex-shrink-0 cursor-pointer"
+        className="z-150 h-10 max-w-full px-5 py-2.5 rounded inline-flex gap-2 text-base text-center leading-5 items-center select-none active:shadow-inner active:shadow-gray-900/25 text-gray-900 bg-gray-200 hover:bg-gray-300 active:bg-white whitespace-nowrap flex-shrink-0 cursor-pointer"
       >
        
         <span className="truncate font-black">Generér spørgsmål til teksten</span> <Image src="/sparkles-pink.png" alt="AI icon" width={20} height={20} />
@@ -119,12 +119,10 @@ export default function GenerateQuestionsButton() {
 
       <Modal
         isOpen={isModalOpen}
+        children={sampleQuestionsJson}
         onClose={() => setIsModalOpen(false)}
         title="Genererede spørgsmål"
       >
-        <div className="space-y-2">
-          {formatMarkdownContent(sampleQuestions)}
-        </div>
       </Modal>
     </>
   );
