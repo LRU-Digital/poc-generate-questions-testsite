@@ -110,7 +110,7 @@ export default function GenerateQuestionsButton() {
       <button
         onClick={() => {
           trackEvent({
-            event: 'generate_questions_click',
+            event: 'generate_questions',
           });
           setIsModalOpen(true);
           setPopupVisible(false);

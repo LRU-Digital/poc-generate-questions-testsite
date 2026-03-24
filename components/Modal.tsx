@@ -18,6 +18,13 @@ interface ModalProps {
 
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
+  
+  const events = [
+      'copy_reflektion',
+      'copy_fordybende',
+      'copy_kreative'
+      ];
+      
 
   const copyToClipboard = (elementId: string, heading: string, index: number) => {
     const element = document.getElementById(elementId);
@@ -27,10 +34,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
         setCopiedId(elementId);
         setTimeout(() => setCopiedId(null), 2000);
         trackEvent({
-          event: 'copy_button_click',
-          category: 'questions_modal',
-          label: heading,
-          question_index: index + 1,
+          event: events[index],
         });
       });
     }
