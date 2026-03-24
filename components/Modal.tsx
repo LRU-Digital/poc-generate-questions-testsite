@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
+import { trackEvent } from '@/lib/trackEvent';
 
 interface ModalProps {
   isOpen: boolean;
@@ -18,13 +19,19 @@ interface ModalProps {
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const copyToClipboard = (elementId: string) => {
+  const copyToClipboard = (elementId: string, heading: string, index: number) => {
     const element = document.getElementById(elementId);
     if (element) {
       const text = element.innerText;
       navigator.clipboard.writeText(text).then(() => {
         setCopiedId(elementId);
         setTimeout(() => setCopiedId(null), 2000);
+        trackEvent({
+          event: 'copy_button_click',
+          category: 'questions_modal',
+          label: heading,
+          question_index: index + 1,
+        });
       });
     }
   };
@@ -51,7 +58,7 @@ export default function Modal({ isOpen, onClose, children }: ModalProps) {
               </ol>
             </div>
             <button
-              onClick={() => copyToClipboard(`copyable-${index}`)}
+              onClick={() => copyToClipboard(`copyable-${index}`, questionGroup.heading, index)}
               className="mt-2 inline-flex items-center gap-1 px-3 py-1 text-sm rounded bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors"
               title="Kopier til udklipsholder"
             >

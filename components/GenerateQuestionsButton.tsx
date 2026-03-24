@@ -5,6 +5,7 @@ import Modal from './Modal';
 import { sampleQuestionsJson } from '@/data/sampleQuestionsJson';
 import Popup from "./Popup";
 import Image from "next/image";
+import {trackEvent} from "@/lib/trackEvent";
 
 export default function GenerateQuestionsButton() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -108,6 +109,9 @@ export default function GenerateQuestionsButton() {
         </span>
       <button
         onClick={() => {
+          trackEvent({
+            event: 'generate_questions_click',
+          });
           setIsModalOpen(true);
           setPopupVisible(false);
         }}
