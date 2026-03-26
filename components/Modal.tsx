@@ -1,105 +1,33 @@
 'use client';
 
-import { useState } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
-import { trackEvent } from '@/lib/trackEvent';
 
 interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
-  title: string;
-  children: {
-    questions: Array<{
-      heading: string;
-      options: string[];
-    }>;
-  };
+  children: React.ReactNode;
 }
 
 export default function Modal({ isOpen, onClose, children }: ModalProps) {
-  const [copiedId, setCopiedId] = useState<string | null>(null);
-  
-  const events = [
-      'copy_reflektion',
-      'copy_fordybende',
-      'copy_kreative'
-      ];
-      
-
-  const copyToClipboard = (elementId: string, heading: string, index: number) => {
-    const element = document.getElementById(elementId);
-    if (element) {
-      const text = element.innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        setCopiedId(elementId);
-        setTimeout(() => setCopiedId(null), 2000);
-        trackEvent({
-          event: events[index],
-        });
-      });
-    }
-  };
-
-  const renderChildrenWithCopy = (children: any): React.ReactNode => {
-    if (typeof children !== 'object' || !children.questions) {
-      return children;
-    }
-
-    return (
-      <div className="space-y-6">
-        {children.questions.map((questionGroup: any, index: number) => (
-          <div key={`question-group-${index}`} className="relative">
-            <div id={`copyable-${index}`} className="bg-gray-50 border border-gray-200 rounded-lg p-4">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">
-                {questionGroup.heading}
-              </h3>
-              <ol className="list-decimal list-inside space-y-2">
-                {questionGroup.options.map((option: string, optionIndex: number) => (
-                  <li key={`option-${index}-${optionIndex}`} className="text-gray-700 leading-relaxed">
-                    {option}
-                  </li>
-                ))}
-              </ol>
-            </div>
-            <button
-              onClick={() => copyToClipboard(`copyable-${index}`, questionGroup.heading, index)}
-              className="mt-2 inline-flex items-center gap-1 px-3 py-1 text-sm rounded bg-gray-100 hover:bg-gray-200 text-gray-600 hover:text-gray-900 transition-colors"
-              title="Kopier til udklipsholder"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-                <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
-              </svg>
-              {copiedId === `copyable-${index}` ? 'Kopieret!' : 'Kopier'}
-            </button>
-          </div>
-        ))}
-      </div>
-    );
-  };
-
   return (
     <Dialog open={isOpen} onClose={onClose} className="relative z-150">
-      {/* Backdrop */}
       <div className="fixed inset-0 bg-gray-900/80 grid items-center p-2 sm:p-4" aria-hidden="true" />
-
-      {/* Full-screen container */}
       <div className="fixed inset-0 grid items-center p-2 sm:p-4">
-        <DialogPanel className="relative mx-auto flex w-full max-w-2xl max-h-[90vh] flex-col gap-2 rounded bg-white p-4 sm:p-6 shadow-xl shadow-gray-900/20">
-          
-
-          {/* Content */}
-          <div className="overflow-y-auto flex-1 min-h-0">
-            {renderChildrenWithCopy(children)}
-          </div>
-          {/* Close button */}
+        <DialogPanel className="relative mx-auto flex w-full max-w-2xl max-h-[90vh] flex-col rounded bg-white p-4 sm:p-6 shadow-xl shadow-gray-900/20">
           <button
-              onClick={onClose}
-              type="button"
-              className="h-9 max-w-full px-4 py-2 rounded inline-flex gap-2 text-sm text-center leading-5 items-center select-none active:shadow-inner active:shadow-gray-900/25 bg-[#5f0000] text-white hover:bg-[#7f0000] active:bg-[#5f0000] self-end"
+            onClick={onClose}
+            aria-label="Luk modal"
+            title="Luk modal"
+            type="button"
+            className="absolute top-3 right-3 inline-flex items-center justify-center select-none h-8 w-8 bg-white text-gray-900 hover:bg-gray-100 active:bg-white active:shadow-inner active:shadow-gray-900/25 rounded-full flex-none z-10"
           >
-            <span className="truncate font-black cursor-pointer">Luk</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" className="w-4 h-4 pointer-events-none">
+              <path fillRule="evenodd" d="M1.533 16c.415 0 .812-.162 1.083-.451L7.99 10.13l5.393 5.418c.271.27.632.451 1.065.451.848 0 1.533-.686 1.533-1.535 0-.433-.18-.795-.451-1.083L10.137 8l5.412-5.436A1.37 1.37 0 0 0 16 1.517 1.53 1.53 0 0 0 14.467 0c-.397 0-.722.144-1.028.47L7.99 5.887 2.579.487a1.402 1.402 0 0 0-1.046-.45C.685.036 0 .703 0 1.534c0 .415.18.795.469 1.047L5.844 8 .47 13.418c-.29.27-.47.632-.47 1.047C0 15.314.685 16 1.533 16Z" clipRule="evenodd" />
+            </svg>
           </button>
+          <div className="overflow-y-auto flex-1 min-h-0">
+            {children}
+          </div>
         </DialogPanel>
       </div>
     </Dialog>
