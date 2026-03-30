@@ -20,6 +20,7 @@ export default function GenerateQuestionsButton() {
   };
 
   const handlePrint = () => {
+    trackEvent({ event: 'print_click' });
     const content = printRef.current;
     if (!content) return;
     const printWindow = window.open('', '_blank', 'width=800,height=900');
@@ -134,14 +135,17 @@ export default function GenerateQuestionsButton() {
                   </h3>
                 </div>
                 <p className="print-disabled">
-                  <input type="checkbox" checked={enabledSections.mc} onChange={() => toggleSection('mc')} className="mb-0 w-4 h-4 cursor-pointer print-disabled" />
+                  <input 
+                    type="checkbox" checked={enabledSections.mc} onChange={() => toggleSection('mc')} className="mb-0 w-4 h-4 cursor-pointer print-disabled" 
+                    onClick={() => trackEvent({ event: enabledSections.mc ? 'disable_print' : 'enable_print', opgavetype: 'multiple_choice' })}
+                  />
                   {' '}<span className="inline-block">Medtag i print</span>
                 </p>
                 <div className={!enabledSections.mc ? 'hidden' : ''}>
                   <p contentEditable suppressContentEditableWarning className="text-sm text-gray-500 italic">Sæt ring om det rigtige svar.</p>
                   <div className="flex flex-col gap-4">
                     {questionsData.multiple_choice.map((q, index) => (
-                      <div key={index} className="border border-gray-200 rounded-lg p-4 bg-white">
+                      <div key={index} className="border border-gray-200 rounded-lg p-4 bg-white" onClick={() => trackEvent({ event: 'question_click', opgavetype: 'multiple_choice', question_index: index })}>
                         <p contentEditable suppressContentEditableWarning className="font-semibold text-gray-800 mb-3">
                           {index + 1}. {q.question}
                         </p>
@@ -180,10 +184,13 @@ export default function GenerateQuestionsButton() {
                   </h3>
                 </div>
                 <p className="print-disabled">
-                  <input type="checkbox" checked={enabledSections.tf} onChange={() => toggleSection('tf')} className="mb-0 w-4 h-4 cursor-pointer print-disabled" />
+                  <input 
+                    type="checkbox" checked={enabledSections.tf} onChange={() => toggleSection('tf')} className="mb-0 w-4 h-4 cursor-pointer print-disabled" 
+                    onClick={() => trackEvent({ event: enabledSections.tf ? 'disable_print' : 'enable_print', opgavetype: 'true_false' })}
+                  />
                   {' '}<span className="inline-block">Medtag i print</span>
                 </p>
-                <div className={!enabledSections.tf ? 'hidden' : ''}>
+                <div className={!enabledSections.tf ? 'hidden' : ''} onClick={() => trackEvent({ event: 'question_click', opgavetype: 'true_false' })}>
                   <p className="text-sm text-gray-500 italic">Sæt kryds i enten "Sandt" eller "Falsk".</p>
                   <table className="w-full text-sm border-collapse">
                     <thead>
@@ -220,10 +227,13 @@ export default function GenerateQuestionsButton() {
                   </h3>
                 </div>
                 <p className="print-disabled">
-                  <input type="checkbox" checked={enabledSections.input} onChange={() => toggleSection('input')} className="mb-0 w-4 h-4 cursor-pointer print-disabled" />
+                  <input 
+                    type="checkbox" checked={enabledSections.input} onChange={() => toggleSection('input')} className="mb-0 w-4 h-4 cursor-pointer print-disabled" 
+                    onClick={() => trackEvent({ event: enabledSections.input ? 'disable_print' : 'enable_print', opgavetype: 'one_line_free_text' })}
+                  />
                   {' '}<span className="inline-block">Medtag i print</span>
                 </p>
-                <div className={!enabledSections.input ? 'hidden' : ''}>
+                <div className={!enabledSections.input ? 'hidden' : ''} onClick={() => trackEvent({ event: 'question_click', opgavetype: 'one_line_free_text' })}>
                   <p className="text-sm text-gray-500 italic" contentEditable suppressContentEditableWarning>Skriv svaret på linjen.</p>
                   <div className="flex flex-col gap-5">
                     {questionsData.input.map((q, index) => (
@@ -250,10 +260,13 @@ export default function GenerateQuestionsButton() {
                   </h3>
                 </div>
                 <p className="print-disabled">
-                  <input type="checkbox" checked={enabledSections.open} onChange={() => toggleSection('open')} className="mb-0 w-4 h-4 cursor-pointer print-disabled" />
+                  <input 
+                    type="checkbox" checked={enabledSections.open} onChange={() => toggleSection('open')} className="mb-0 w-4 h-4 cursor-pointer print-disabled" 
+                    onClick={() => trackEvent({ event: enabledSections.open ? 'disable_print' : 'enable_print', opgavetype: 'multiple_line_free_text' })}
+                  />
                   {' '}<span className="inline-block">Medtag i print</span>
                 </p>
-                <div className={!enabledSections.open ? 'hidden' : ''}>
+                <div className={!enabledSections.open ? 'hidden' : ''} onClick={() => trackEvent({ event: 'question_click', opgavetype: 'multiple_line_free_text' })}>
                   <p className="text-sm text-gray-500 italic" contentEditable suppressContentEditableWarning>Skriv dit svar på linjerne.</p>
                   <div className="flex flex-col gap-6">
                     {questionsData.open_ended.map((q, index) => (
