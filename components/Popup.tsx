@@ -28,11 +28,10 @@ export default function Popup({ visible, setVisible }: PopupProps) {
       <div className="absolute -top-3.25 left-6 w-0 h-0 border-l-10 border-l-transparent border-r-10 border-r-transparent border-b-3.25 border-b-gray-100" />
       {/* Speech bubble triangle – fill layer */}
       <div className="absolute -top-[12px] left-[340px] w-0 h-0 border-l-10 border-l-transparent border-r-10 border-r-transparent border-b-[12px] border-b-teal-800" />
-      <p className="mb-2">Du er nu inde på et test-forløb og vi håber, du vil bære over med, at alt ikke ser ud, som det plejer. Det du skal teste er vores idé til en ny AI-funktion til lærere.</p>
-          <p className="mb-2">Forestil dig, at du er ved at planlægge undervisning med indholdet på siden her. Du kan ikke helt bruge indholdet, som det er.</p>
-          <p className="mb-2">Klik på knappen ovenover for at bruge AI-funktionen og få andet indhold.</p>
-          <p className="mb-2">Du kan teste den lige så længe, du har lyst. Tak for at være med!</p>
-        <p>Her kan du teste vores kommende funktionalitet, hvor du med hjælp fra AI, kan generere en række spørgsmål til teksten på den nuværende side.</p>
+      <p className="mb-2">Forestil dig, at du er ved at planlægge undervisning med indholdet på siden her. Du har brug for nogle spørgsmål, du kan bruge i undervisningen.</p>
+          <p className="mb-2">Klik på knappen for at bruge AI-funktionen og få spørgsmål.</p>
+          <p className="mb-2">Du kan kun generere spørgsmål én gang i testen.</p>
+          <p className="mb-2">Husk at give feedback via pop-up’en bagefter.</p>
       </div>
     </>
   );
